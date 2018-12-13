@@ -1,4 +1,4 @@
-package com.polarlights.jpa.bestpractice.domain;
+package com.polarlights.bestpractice.jpa.time;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -10,12 +10,13 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.persistence.EntityManager;
 
-import com.polarlights.jpa.bestpractice.repository.PostRepository;
+import com.polarlights.bestpractice.jpa.time.domain.Post;
+import com.polarlights.bestpractice.jpa.time.repository.PostRepository;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +24,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
-class PostTest {
+@DataJpaTest
+@Transactional
+class DefaultTimestampTest {
 
     @Autowired
     PostRepository postRepository;
@@ -32,7 +34,6 @@ class PostTest {
     EntityManager entityManager;
 
     @Test
-    @Transactional(rollbackFor = Exception.class)
     void testTimeSavedInLocalFormat() {
         Post post = new Post();
         Instant now = Instant.now();
@@ -51,11 +52,11 @@ class PostTest {
             try (Statement statement = connection.createStatement()) {
                 try (ResultSet resultSet = statement.executeQuery(
                     "SELECT FORMATDATETIME(created_at,'" + datetimePattern + "') " +
-                        "FROM post"
+                        "FROM time_post"
                 )) {
                     while (resultSet.next()) {
-                        assertEquals(dtfUTC.format(now), resultSet.getString(1));
-                        assertNotEquals(dtfUTC8.format(now), resultSet.getString(1));
+                        assertNotEquals(dtfUTC.format(now), resultSet.getString(1));
+                        assertEquals(dtfUTC8.format(now), resultSet.getString(1));
                     }
                 }
             }
@@ -63,7 +64,6 @@ class PostTest {
     }
 
     @Test
-    @Transactional(rollbackFor = Exception.class)
     void testLocalDateTimeSavedInLocalFormat() {
         Post post = new Post();
         LocalDateTime now = LocalDateTime.now();
@@ -82,20 +82,19 @@ class PostTest {
             try (Statement statement = connection.createStatement()) {
                 try (ResultSet resultSet = statement.executeQuery(
                     "SELECT FORMATDATETIME(local_date_time,'" + datetimePattern + "') " +
-                        "FROM post"
+                        "FROM time_post"
                 )) {
                     while (resultSet.next()) {
                         Instant instant = ZonedDateTime.of(now, ZoneId.of("Asia/Shanghai"))
                             .toInstant();
-                        assertNotEquals(dtfUTC8.format(instant), resultSet.getString(1));
-                        assertEquals(dtfUTC.format(instant), resultSet.getString(1));
+                        assertEquals(dtfUTC8.format(instant), resultSet.getString(1));
+                        assertNotEquals(dtfUTC.format(instant), resultSet.getString(1));
                     }
                 }
             }
         });
 
-        assertEquals(post.getLocalDateTime(), postRepository.findById(1L)
-            .get()
-            .getLocalDateTime());
+        post = postRepository.findAll().get(0);
+        assertEquals(post.getLocalDateTime(), post.getLocalDateTime());
     }
 }

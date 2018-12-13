@@ -1,4 +1,4 @@
-package com.polarlights.jpa.bestpractice.domain;
+package com.polarlights.bestpractice.jpa.time.domain;
 
 import java.io.Serializable;
 import java.time.Instant;

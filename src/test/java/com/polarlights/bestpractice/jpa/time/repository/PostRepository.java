@@ -1,7 +1,8 @@
-package com.polarlights.jpa.bestpractice.repository;
+package com.polarlights.bestpractice.jpa.time.repository;
 
-import com.polarlights.jpa.bestpractice.domain.Post;
+import com.polarlights.bestpractice.jpa.time.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
+
 }
