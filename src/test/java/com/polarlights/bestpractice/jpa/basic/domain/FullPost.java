@@ -1,6 +1,5 @@
-package com.polarlights.bestpractice.jpa.time.domain;
+package com.polarlights.bestpractice.jpa.basic.domain;
 
-import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,9 +10,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "time_post")
-public class Post extends BaseEntity {
+@Table(name = "basic_post")
+public class FullPost extends BaseEntity {
 
     private static final long serialVersionUID = -1L;
-    private LocalDateTime localDateTime;
+
+    private String content;
 }

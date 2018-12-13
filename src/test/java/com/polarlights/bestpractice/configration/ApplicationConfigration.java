@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @Configuration
-@ComponentScan("com.polarlights.jpa.bestpractice")
-@EntityScan("com.polarlights.jpa.bestpractice")
+@ComponentScan("com.polarlights.bestpractice.jpa")
+@EntityScan("com.polarlights.bestpractice.jpa")
 public class ApplicationConfigration {
 
 }
