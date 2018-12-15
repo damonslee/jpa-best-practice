@@ -1,4 +1,4 @@
-package com.polarlights.bestpractice;
+package com.polarlights.bestpractice.jpa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

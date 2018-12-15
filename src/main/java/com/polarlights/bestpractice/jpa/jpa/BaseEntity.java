@@ -1,4 +1,4 @@
-package com.polarlights.bestpractice.jpa;
+package com.polarlights.bestpractice.jpa.jpa;
 
 import java.io.Serializable;
 import java.time.Instant;

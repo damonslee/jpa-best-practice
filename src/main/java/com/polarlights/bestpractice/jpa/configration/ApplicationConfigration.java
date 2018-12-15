@@ -1,4 +1,4 @@
-package com.polarlights.bestpractice.configration;
+package com.polarlights.bestpractice.jpa.configration;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;

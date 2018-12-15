@@ -1,4 +1,4 @@
-package com.polarlights.bestpractice.jpa.time;
+package com.polarlights.bestpractice.jpa.jpa.time;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -10,14 +10,13 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.persistence.EntityManager;
 
-import com.polarlights.bestpractice.jpa.time.domain.Post;
-import com.polarlights.bestpractice.jpa.time.repository.PostRepository;
+import com.polarlights.bestpractice.jpa.jpa.time.domain.Post;
+import com.polarlights.bestpractice.jpa.jpa.time.repository.PostRepository;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Transactional
-@ActiveProfiles("utc")
-class UTCTimestampTest {
+class DefaultTimestampTest {
 
     @Autowired
     PostRepository postRepository;
@@ -57,8 +55,8 @@ class UTCTimestampTest {
                         "FROM time_post"
                 )) {
                     while (resultSet.next()) {
-                        assertEquals(dtfUTC.format(now), resultSet.getString(1));
-                        assertNotEquals(dtfUTC8.format(now), resultSet.getString(1));
+                        assertNotEquals(dtfUTC.format(now), resultSet.getString(1));
+                        assertEquals(dtfUTC8.format(now), resultSet.getString(1));
                     }
                 }
             }
@@ -89,8 +87,8 @@ class UTCTimestampTest {
                     while (resultSet.next()) {
                         Instant instant = ZonedDateTime.of(now, ZoneId.of("Asia/Shanghai"))
                             .toInstant();
-                        assertNotEquals(dtfUTC8.format(instant), resultSet.getString(1));
-                        assertEquals(dtfUTC.format(instant), resultSet.getString(1));
+                        assertEquals(dtfUTC8.format(instant), resultSet.getString(1));
+                        assertNotEquals(dtfUTC.format(instant), resultSet.getString(1));
                     }
                 }
             }

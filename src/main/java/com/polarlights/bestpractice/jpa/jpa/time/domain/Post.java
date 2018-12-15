@@ -1,10 +1,10 @@
-package com.polarlights.bestpractice.jpa.time.domain;
+package com.polarlights.bestpractice.jpa.jpa.time.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.polarlights.bestpractice.jpa.BaseEntity;
+import com.polarlights.bestpractice.jpa.jpa.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
