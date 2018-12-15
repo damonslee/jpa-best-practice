@@ -1,7 +1,7 @@
 package com.polarlights.bestpractice.jpa.basic;
 
+import com.polarlights.bestpractice.jpa.basic.domain.BasicPost;
 import com.polarlights.bestpractice.jpa.basic.domain.FullPost;
-import com.polarlights.bestpractice.jpa.basic.domain.Post;
 import com.polarlights.bestpractice.jpa.basic.repository.FullPostRepository;
 import com.polarlights.bestpractice.jpa.basic.repository.SimplePostRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,8 +33,8 @@ public class LazyLoadAttributeTest {
 
     @Test
     void testWithoutLazyLoadAttribute() {
-        Post post = simplePostRepository.findById(1L).get();
-        assertEquals(Long.valueOf(1), post.getId());
+        BasicPost basicPost = simplePostRepository.findById(1L).get();
+        assertEquals(Long.valueOf(1), basicPost.getId());
     }
 
     @Test

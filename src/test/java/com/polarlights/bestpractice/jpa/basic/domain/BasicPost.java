@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "basic_post")
-public class Post extends BaseEntity {
+public class BasicPost extends BaseEntity {
 
     private static final long serialVersionUID = -1L;
 }
